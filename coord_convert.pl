@@ -4,7 +4,6 @@ use warnings FATAL => 'all';
 use Getopt::Long;
 use Path::Class;
 use Bio::EnsEMBL::Registry;
-use Smart::Comments;
 
 my @regions;
 my $regions_file;
@@ -46,13 +45,13 @@ sub get_mapped_segments{
     
     my $slice = $slice_adaptor->fetch_by_region( 'chromosome', $chr, $start, $end, $strand, $assembly_from );
     die "Could not retrieve region $chr:$start..$end:$strand from $assembly_from assembly.  Please check that this is a valid region.\n" if !$slice;
-    
+
     return $slice->project( 'chromosome', $assembly_to );
 }
 
 sub get_segment_regions{
     my ( $segment, $chr, $start, $strand ) = @_;
- 
+
     my $original_start = $segment->from_start() + ( $start - 1 );
     my $original_end = $segment->from_end() + ( $start - 1 );
     my $segment_slice = $segment->to_Slice();
@@ -79,10 +78,10 @@ sub get_regions_from_file{
 sub parse_region{
     my $region = shift;
     
-    my ( $chr, $start, $end, $strand ) = $region =~ /^([^:]+):(\d+)\.\.(\d+)((:1|:-1)?)$/;
+    my ( $chr, $start, $end, $strand ) = $region =~ /^([^:]+):(\d+)\.\.(\d+)((:1|:\-1)?)$/;
     die "Could not parse region $region.  Region should be in the format <chr>:<start>..<end>:<strand> (e.g. 1:100..10000:-1)\n" if !$chr;
     ( $start, $end ) = ( $end, $start ) if $start > $end;
-    $strand = 1 if !$strand;
+    $strand = !$strand ? 1 : substr( $strand, 1 ); #Set strand as sense if not defined, otherwise remove colon
 
     return ( $chr, $start, $end, $strand );
 }
