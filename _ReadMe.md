@@ -19,6 +19,8 @@ Either -r/--region or -i/--in_file (or both) must be specified.  All other argum
 Options:
 * -r/--region
     * List of one or more regions to convert, separated by single spaces
+    * Regions should be in the following format:
+        * chr:start..end:strand
     * Strand is optional, and should be specified as either 1 (sense) or -1 (antisense)
     * e.g. `--region 1:10000..20000:1 2:100..300:-1 X:350-4000`
 * -i/--in_file
