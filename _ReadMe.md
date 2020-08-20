@@ -38,9 +38,9 @@ Options:
 Coordinate mapping from GRCh38 to GRCh37 can also be achieved using the Ensembl Rest API  by submitting a GET request to the https://rest.ensembl.org server in the following format:
     map/:species/:asm_one/:region/:asm_two
 
-For example, to retrieve the mapping for the antisense strand of the region on chromosome 1, between base positions 25000 and 30000, you would submit the following request:	    
+For example, to retrieve the mapping for the antisense strand of the region on chromosome 1, between base positions 25000 and 40000, you would submit the following request:	    
 
-https://rest.ensembl.org/map/human/GRCh38/1:25000..30000:-1/GRCh37
+https://rest.ensembl.org/map/human/GRCh38/1:25000..40000:-1/GRCh37
 
 This has the following advantages and disadvantages for the user:
 * Advantages
